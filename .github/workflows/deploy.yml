@@ -113,6 +113,6 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -var "env=${{ env.BRANCH_NAME }}" tf.plan
+        run: terraform apply -var "env=${{ env.BRANCH_NAME }}"
         working-directory: ./terraform # Use your environment folder
         shell: bash
