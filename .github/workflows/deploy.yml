@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Print github branch name
-        run: echo "Branch name is ${{BRANCH_NAME}}"
+        run: echo "Branch name is ${{ github.head_ref || github.ref_name }}"
         shell: bash
 
       - name: Setup Terraform
@@ -58,7 +58,7 @@ jobs:
     
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var "env=${{BRANCH_NAME}}" -no-color -out tf.plan
+        run: terraform plan -var "env=${{ env.BRANCH_NAME }}" -no-color -out tf.plan
         working-directory: ./terraform
         continue-on-error: true
 
@@ -112,6 +112,6 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -var "env=${{BRANCH_NAME}}" tf.plan
+        run: terraform apply -var "env=${{ env.BRANCH_NAME }}" tf.plan
         working-directory: ./terraform
         shell: bash
